@@ -1,5 +1,5 @@
 "use client"
-
+import { ZCOOL_QingKe_HuangYou } from "next/font/google";
 import type React from "react"
 
 import { useState, useEffect } from "react"
@@ -12,6 +12,11 @@ import { useTheme } from "next-themes"
 import NavDropdown from "./nav-dropdown"
 import MobileMenu from "./mobile-menu"
 import { resourcesDropdownData } from "./nav-data"
+
+  const roboto = ZCOOL_QingKe_HuangYou ({
+  subsets: ["latin"],
+  weight: ["400"], // you can choose multiple weights
+});
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -77,8 +82,10 @@ export default function Header() {
                 //   className="h-12 w-auto"
                 //   priority
                 // />
-                <div className="h-12 pl-5 pt-5 w-auto text-xl text-[#7A7FEE]">
-                  <h1>Forge YK Labs </h1>
+                <div className=" ">
+                  <h1 className={`${roboto.className} text-[#7A7FEE] text-3xl font-bold`}>
+                   Forgeyk Labs
+                  </h1>
                 </div>
               ) : (
                 <div className="h-12 w-[200px]" />
@@ -106,7 +113,7 @@ export default function Header() {
                           : "text-black dark:text-white hover:text-[#7A7FEE] dark:hover:text-[#7A7FEE]"
                       }`}
                     >
-                      Portfolio
+                      Crafted sites
                     </Link>
                   </li>
                   <li>
@@ -118,7 +125,7 @@ export default function Header() {
                           : "text-black dark:text-white hover:text-[#7A7FEE] dark:hover:text-[#7A7FEE]"
                       }`}
                     >
-                      Start Project
+                      Book Call
                     </Link>
                   </li>
                 </ul>
