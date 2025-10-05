@@ -3,9 +3,9 @@ import { fetchPortfolioData } from "@/utils/csv-parser"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Portfolio | Automatic",
+  title: "Portfolio | Forgeyk Labs",
   description:
-    "Explore our latest projects and case studies. From AI-driven automation to custom marketplaces, our work helps businesses scale smarter.",
+    "forgeyk labs — We build high quality, scalable, and fully hand-coded websites for businesses. From client portals to marketplaces, we craft every line of code with precision and zero shortcuts",
 }
 
 export default async function Portfolio() {

@@ -15,14 +15,13 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: "Automatic - Your AI-first Development Partner",
+  title: "Forgeyk Labs - Your Business Website Partner",
   description:
-    "We build high-quality, scalable platforms—client portals, marketplaces, AI automations, and SaaS—using the best tools for the job, no shortcuts.",
+    "We build high quality, scalable, and fully hand-coded websites for businesses. From client portals to marketplaces, we craft every line of code with precision and zero shortcuts",
   icons: {
     icon: [{ url: "/automatic-favicon-no-bg.png", type: "image/png" }],
     apple: [{ url: "/automatic-favicon-no-bg.png" }],
   },
-    generator: 'v0.app'
 }
 
 export default function RootLayout({
