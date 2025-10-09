@@ -66,7 +66,7 @@ export default function Header() {
     <>
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${
-          isScrolled ? "bg-white/90 dark:bg-[#111111]/90 backdrop-blur-sm shadow-sm" : "bg-transparent"
+          isScrolled ? "bg-white/90 dark:bg-[#111111]/5 backdrop-blur-sm shadow-sm" : "bg-transparent"
         }`}
       >
         <div className="container py-4">
@@ -83,7 +83,7 @@ export default function Header() {
                 //   priority
                 // />
                 <div className=" ">
-                  <h1 className={`${roboto.className} text-[#7A7FEE] text-3xl font-bold`}>
+                  <h1 className={`text-[#7A7FEE] text-3xl font-bold`}>
                    Forgeyk Labs
                   </h1>
                 </div>
