@@ -4,14 +4,14 @@ import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen w-full overflow-hidden">
+    <section id="hero" className="relative w-full overflow-hidden">
       {/* Background effect - covers entire section, receives all clicks */}
       <div className="absolute inset-0 w-full h-full flex items-center justify-center z-0 opacity-30">
-        <BackgroundRippleEffect rows={20} cols={50} cellSize={56} />
+        <BackgroundRippleEffect rows={11} cols={50} cellSize={56} />
       </div>
       
       {/* Content container - pointer-events-none on container, but enabled on interactive elements */}
-      <div className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 md:px-8 pointer-events-none">
+      <div className="relative z-10 flex min-h-0 md:min-h-screen w-full flex-col items-center justify-center px-4 md:px-8 py-16 md:py-0 pointer-events-none">
         {/* Text content - centered */}
         <div className="w-full max-w-4xl text-center">
           <h1 className="text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-medium leading-tight">
