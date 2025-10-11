@@ -18,31 +18,31 @@ export const ScrollReveal = ({
   delay = 0,
   className = "",
   once = true,
-  amount = 0.3
+  amount = 0.3,
 }: ScrollRevealProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { 
-    once, 
+  const isInView = useInView(ref, {
+    once,
     amount,
-    margin: "-100px" // Trigger animation slightly before element comes into view
+    margin: "-100px", // Trigger animation slightly before element comes into view
   });
 
   const defaultVariant: Variants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 60,
-      filter: "blur(4px)"
+      filter: "blur(4px)",
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       filter: "blur(0px)",
       transition: {
         duration: 0.7,
         delay,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
   };
 
   return (
