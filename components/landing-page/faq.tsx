@@ -50,16 +50,18 @@ export default function Faq() {
   }
 
   return (
-    <section id="faq" className="my-20">
-      <div className="card p-8 md:p-10 shadow-lg">
-        <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
-          Frequently Asked
-          <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Questions</span>
-        </h2>
-        <p className="mb-8 max-w-2xl text-gray-700 dark:text-gray-300">
-          Have questions about our services? Find answers to the most common questions and learn how our team can
-          enhance your creative process.
-        </p>
+    <section id="faq" className="my-20 flex justify-center">
+      <div className="p-8 md:p-10 shadow-lg max-w-4xl w-full">
+        <div className="text-center mb-8">
+          <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
+            Frequently Asked
+            <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Questions</span>
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 mx-auto max-w-2xl">
+            Have questions about our services? Find answers to the most common questions and learn how our team can
+            enhance your creative process.
+          </p>
+        </div>
 
         <div className="space-y-4">
           {faqs.map((faq) => (
@@ -72,7 +74,7 @@ export default function Faq() {
               >
                 <span className="font-medium">{faq.question}</span>
                 <ChevronDown
-                  className={`w-5 h-5 transition-transform ${openItem === faq.id ? "rotate-180 text-[#7A7FEE]" : ""}`}
+                  className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${openItem === faq.id ? "rotate-180 text-[#7A7FEE]" : ""}`}
                 />
               </button>
               {openItem === faq.id && (
