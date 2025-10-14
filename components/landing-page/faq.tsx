@@ -1,7 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { useState, useRef } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 const faqs = [
   {
@@ -34,32 +36,58 @@ const faqs = [
     answer:
       "Yes, we offer ongoing technical support and maintenance packages. These can include user support, bug fixes, feature updates, and performance monitoring.",
   },
-]
+];
 
 export default function Faq() {
-  const [openItem, setOpenItem] = useState<number | null>(null)
+  const [openItem, setOpenItem] = useState<number | null>(null);
+
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, {
+    once: false,
+    amount: 0.2,
+  });
 
   const toggleItem = (id: number) => {
-    setOpenItem(openItem === id ? null : id)
-  }
+    setOpenItem(openItem === id ? null : id);
+  };
 
   return (
-    <section id="faq" className="my-20 flex justify-center">
-      <div className="p-8 md:p-10 shadow-lg max-w-4xl w-full">
+    <section id="faq" className="my-20 flex justify-center" ref={sectionRef}>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="p-8 md:p-10 shadow-lg max-w-4xl w-full"
+      >
         <div className="text-center mb-8">
-          <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
+          <motion.h2
+            variants={fadeInUp}
+            className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight"
+          >
             Frequently Asked
-            <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Questions</span>
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 mx-auto max-w-2xl">
-            Have questions about our services? Find answers to the most common questions and learn how our team can
-            enhance your creative process.
-          </p>
+            <motion.span
+              variants={fadeInUp}
+              className="block text-[#7A7FEE] dark:text-[#7A7FEE]"
+            >
+              Questions
+            </motion.span>
+          </motion.h2>
+          <motion.p
+            variants={fadeInUp}
+            className="text-gray-700 dark:text-gray-300 mx-auto max-w-2xl"
+          >
+            Have questions about our services? Find answers to the most common
+            questions and learn how our team can enhance your creative process.
+          </motion.p>
         </div>
 
         <div className="space-y-4">
           {faqs.map((faq) => (
-            <div key={faq.id} className="border-b pb-4 border-gray-300 dark:border-gray-700">
+            <motion.div
+              key={faq.id}
+              variants={fadeInUp}
+              className="border-b pb-4 border-gray-300 dark:border-gray-700"
+            >
               <button
                 onClick={() => toggleItem(faq.id)}
                 className="flex justify-between items-center w-full text-left py-2 font-medium text-black dark:text-white hover:text-[#7A7FEE] dark:hover:text-[#7A7FEE] transition-colors"
@@ -68,18 +96,23 @@ export default function Faq() {
               >
                 <span className="font-medium">{faq.question}</span>
                 <ChevronDown
-                  className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${openItem === faq.id ? "rotate-180 text-[#7A7FEE]" : ""}`}
+                  className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${
+                    openItem === faq.id ? "rotate-180 text-[#7A7FEE]" : ""
+                  }`}
                 />
               </button>
               {openItem === faq.id && (
-                <div id={`faq-answer-${faq.id}`} className="mt-2 text-gray-700 dark:text-gray-300">
+                <div
+                  id={`faq-answer-${faq.id}`}
+                  className="mt-2 text-gray-700 dark:text-gray-300"
+                >
                   {faq.answer}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
-  )
+  );
 }
