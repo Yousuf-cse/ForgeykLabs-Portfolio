@@ -39,15 +39,17 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="my-20">
-      <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
+    <section id="projects" className="my-10">
+      <div className="w-full flex flex-col items-center text-center mb-12">
+      <h2 className="text-black dark:text-white text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
         Explore Our
-        <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Latest Projects</span>
       </h2>
-      <p className="mb-12 max-w-2xl text-gray-700 dark:text-gray-300">
-        From AI-driven automation to custom marketplaces, our work helps businesses scale smarter. Explore some of the
-        platforms, tools, and solutions we've created for our clients and ourselves.
+      <span className="block text-[#7A7FEE] dark:text-[#7A7FEE] mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">Latest Projects</span>
+      <p className="max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
+        From AI-powered solutions to custom web platforms, we help businesses grow smarter 
+        Discover the websites, tools, and digital experiences we’ve crafted for our clients
       </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {isLoading
