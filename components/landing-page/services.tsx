@@ -1,4 +1,9 @@
-import { CircleDot, Layers, Rocket } from "lucide-react"
+"use client";
+
+import { useRef } from "react";
+import { CircleDot, Layers, Rocket } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 const services = [
   {
@@ -11,44 +16,77 @@ const services = [
   {
     id: 2,
     title: "Build",
-    description: "We craft scalable, reliable solutions with fully hand-crafted code and no shortcuts.",
+    description:
+      "We craft scalable, reliable solutions with fully hand-crafted code and no shortcuts.",
     icon: Layers,
     color: "bg-[#7A7FEE]",
   },
   {
     id: 3,
     title: "Launch + Iterate",
-    description: "Seamlessly integrate, optimize, and expand as your business evolves.",
+    description:
+      "Seamlessly integrate, optimize, and expand as your business evolves.",
     icon: Rocket,
     color: "bg-[#7A7FEE]",
   },
-]
+];
 
 export default function Services() {
-  return (
-    <section id="services" className="my-20">
-      <div className="w-full flex flex-col items-center text-center mb-12">
-      <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
-        Unleash Your
-        <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Business</span>
-      </h2>
-      <p className="mb-12 max-w-2xl text-gray-700 dark:text-gray-300">
-       From custom websites to AI-driven solutions, we help businesses simplify operations and scale effectively. 
-      Your ideas come to life smoothly with our approach
-      </p>
-      </div>
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, {
+    once: false,
+    amount: 0.2,
+  });
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {services.map((service) => (
-          <div key={service.id} className="card p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div className={`${service.color} w-12 h-12 rounded-full flex items-center justify-center mb-4 shadow-sm`}>
-              <service.icon className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-black dark:text-white">{service.title}</h3>
-            <p className="text-gray-700 dark:text-gray-300">{service.description}</p>
-          </div>
-        ))}
-      </div>
+  return (
+    <section id="services" className="my-20" ref={sectionRef}>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        <div className="w-full flex flex-col items-center text-center mb-12">
+          <motion.h2
+            variants={fadeInUp}
+            className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight"
+          >
+            Unleash Your
+            <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">
+              Business
+            </span>
+          </motion.h2>
+          <motion.p
+            variants={fadeInUp}
+            className="mb-12 max-w-2xl text-gray-700 dark:text-gray-300"
+          >
+            From custom websites to AI-driven solutions, we help businesses
+            simplify operations and scale effectively. Your ideas come to life
+            smoothly with our approach
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              variants={scaleIn}
+              className="card p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              <div
+                className={`${service.color} w-12 h-12 rounded-full flex items-center justify-center mb-4 shadow-sm`}
+              >
+                <service.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-black dark:text-white">
+                {service.title}
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                {service.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </section>
-  )
+  );
 }
