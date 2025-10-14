@@ -27,14 +27,16 @@ const services = [
 export default function Services() {
   return (
     <section id="services" className="my-20">
+      <div className="w-full flex flex-col items-center text-center mb-12">
       <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
         Unleash Your
         <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">Business</span>
       </h2>
       <p className="mb-12 max-w-2xl text-gray-700 dark:text-gray-300">
-        We build custom platforms and AI-powered tools to simplify your operations and help you scale. Our process makes
-        it easy to bring your ideas to life.
+       From custom websites to AI-driven solutions, we help businesses simplify operations and scale effectively. 
+      Your ideas come to life smoothly with our approach
       </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {services.map((service) => (
