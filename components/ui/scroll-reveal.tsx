@@ -49,7 +49,7 @@ export const ScrollReveal = ({
     <motion.div
       ref={ref}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? "visible" : {}}
       variants={variant || defaultVariant}
       className={className}
     >
