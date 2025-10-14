@@ -24,13 +24,13 @@ export default function Hero() {
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="relative z-10 flex min-h-0 md:min-h-screen w-full flex-col items-center justify-center px-4 md:px-8 py-16 md:py-0 pointer-events-none"
+        className="relative z-10 flex min-h-0 md:min-h-screen w-full flex-col items-center justify-center px-6 md:px-8 py-24 md:py-0 pointer-events-none"
       >
         {/* Text content - centered */}
         <div className="w-full max-w-4xl text-center">
           <motion.h1
             variants={fadeInUp}
-            className="text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-medium leading-tight"
+            className="text-black dark:text-white text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1]"
           >
             Your Business
             <motion.span
