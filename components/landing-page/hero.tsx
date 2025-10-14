@@ -1,21 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
 import ContactFormButton from "./contact-form-button";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 export default function Hero() {
-   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.2,
-  });
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden" ref={sectionRef}>
+    <section id="hero" className="relative w-full overflow-hidden">
       {/* Background effect - covers entire section, receives all clicks */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -30,7 +24,8 @@ export default function Hero() {
       <motion.div
         variants={staggerContainer}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
         className="relative z-10 flex min-h-0 md:min-h-screen w-full flex-col items-center justify-center px-6 md:px-8 py-24 md:py-0 pointer-events-none"
       >
         {/* Text content - centered */}
