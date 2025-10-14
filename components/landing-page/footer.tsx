@@ -22,13 +22,15 @@ export default function Footer() {
       <div className="flex flex-col items-center text-center">
         <Link href="/" className="flex items-center justify-center mb-4">
           {mounted ? (
-            <Image
-              src={logoSrc || "/placeholder.svg"}
-              alt="Automatic Logo"
-              width={200}
-              height={50}
-              className="h-12 w-auto"
-            />
+            // <Image
+            //   src={logoSrc || "/placeholder.svg"}
+            //   alt="Automatic Logo"
+            //   width={200}
+            //   height={50}
+            //   className="h-12 w-auto"
+            // />
+           <h1 className="text-2xl"> Forgeyk Labs </h1>
+            
           ) : (
             <div className="h-12 w-[200px]" />
           )}
