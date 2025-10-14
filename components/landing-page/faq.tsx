@@ -24,18 +24,12 @@ const faqs = [
   },
   {
     id: 4,
-    question: "How much does a typical project cost?",
-    answer:
-      "Project costs vary widely based on requirements. Simple websites start around $5,000, while complex platforms can range from $25,000 to $100,000+. We provide detailed quotes after our discovery process.",
-  },
-  {
-    id: 5,
     question: "How do you manage payments?",
     answer:
       "We typically work with a 50% upfront deposit and the remaining 50% upon project completion. For larger projects, we may establish milestone-based payment schedules.",
   },
   {
-    id: 6,
+    id: 5,
     question: "Can you manage my app's technical support with users?",
     answer:
       "Yes, we offer ongoing technical support and maintenance packages. These can include user support, bug fixes, feature updates, and performance monitoring.",

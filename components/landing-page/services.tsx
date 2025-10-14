@@ -11,7 +11,7 @@ const services = [
   {
     id: 2,
     title: "Build",
-    description: "We craft scalable, reliable solutions using the best tools for the job.",
+    description: "We craft scalable, reliable solutions with fully hand-crafted code and no shortcuts.",
     icon: Layers,
     color: "bg-[#7A7FEE]",
   },

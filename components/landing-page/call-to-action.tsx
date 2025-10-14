@@ -9,7 +9,7 @@ export default function CallToAction() {
           {/* Text content - centered */}
           <div className="z-10 max-w-2xl">
             <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
-              Your Next Big Idea <span className="text-[#7A7FEE] dark:text-[#7A7FEE]">Starts</span> Here
+              Your Next Digital Move <span className="text-[#7A7FEE] dark:text-[#7A7FEE]">Starts</span> Here
             </h2>
             <p className="my-6 text-sm md:text-base text-gray-700 dark:text-gray-300">
               Have an idea or a problem that needs solving?

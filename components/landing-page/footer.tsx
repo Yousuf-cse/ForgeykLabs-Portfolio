@@ -40,7 +40,7 @@ export default function Footer() {
         </p>
 
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          © {new Date().getFullYear()} Automatic. All rights reserved.
+          © {new Date().getFullYear()} Forgeyk Labs. All rights reserved.
         </p>
       </div>
     </footer>
