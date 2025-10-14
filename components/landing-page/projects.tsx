@@ -1,17 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import ProjectPopup from "../portfolio/project-popup"
 import { fetchPortfolioData } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { motion, useInView } from "framer-motion"
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null)
   const [projects, setProjects] = useState<PortfolioItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
+const sectionRef = useRef(null)
+const isInView = useInView(sectionRef, { 
+  once: false,
+  amount: 0.2
+})
 
   // Fetch portfolio data on component mount
   useEffect(() => {
@@ -39,16 +47,21 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="my-10">
+    <section id="projects" className="my-10" ref={sectionRef}>
+      <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      >
       <div className="w-full flex flex-col items-center text-center mb-12">
-      <h2 className="text-black dark:text-white text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
+      <motion.h2 variants={fadeInUp} className="text-black dark:text-white text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
         Explore Our
-      </h2>
-      <span className="block text-[#7A7FEE] dark:text-[#7A7FEE] mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">Latest Projects</span>
-      <p className="max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
+      </motion.h2>
+      <motion.span variants={fadeInUp} className="block text-[#7A7FEE] dark:text-[#7A7FEE] mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">Latest Projects</motion.span>
+      <motion.p variants={fadeInUp} className="max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
         From AI-powered solutions to custom web platforms, we help businesses grow smarter 
         Discover the websites, tools, and digital experiences we’ve crafted for our clients
-      </p>
+      </motion.p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -64,8 +77,9 @@ export default function Projects() {
               </div>
             ))
           : projects.map((project) => (
-              <div
+              <motion.div
                 key={project.slug}
+                variants={scaleIn}
                 className="card overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
                 onClick={() => openProjectPopup(project)}
               >
@@ -86,18 +100,19 @@ export default function Projects() {
                     <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
       </div>
 
-      <div className="flex justify-center mt-8">
+      <motion.div variants={fadeInUp} className="flex justify-center mt-8">
         <Link href="/portfolio" className="btn-primary">
           View All Projects
         </Link>
-      </div>
+      </motion.div>
 
       {/* Project Popup */}
       <ProjectPopup project={selectedProject} onClose={closeProjectPopup} />
+      </motion.div>
     </section>
   )
 }
