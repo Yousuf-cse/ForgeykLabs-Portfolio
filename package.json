@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@emotion/is-prop-valid": "latest",
     "@remix-run/react": "latest",
     "@splinetool/react-spline": "^4.1.0",
