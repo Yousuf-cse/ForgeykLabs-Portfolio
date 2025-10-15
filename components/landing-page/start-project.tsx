@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 import Cal, { getCalApi } from "@calcom/embed-react";
+import { motion } from "framer-motion";
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 export default function StartProject() {
   const { resolvedTheme } = useTheme();
@@ -62,15 +64,19 @@ export default function StartProject() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#111111]">
+    <motion.div  variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+         className="min-h-screen bg-white dark:bg-[#111111]">
       <div className="mb-8 text-center pt-8">
-        <h2 className="text-black dark:text-white text-3xl md:text-5xl font-medium">
+        <motion.h2 variants={fadeInUp} className="text-black dark:text-white text-3xl md:text-5xl font-medium">
           Ready to Start <br />
           Your Next <span className="text-[#7A7FEE]">Project</span>?
-        </h2>
-        <p className="text-white text-base md:text-lg leading-relaxed mt-4">
+        </motion.h2>
+        <motion.p variants={fadeInUp} className="text-white text-base md:text-lg leading-relaxed mt-4">
           schedule a call with your project manager
-        </p>
+        </motion.p>
       </div>
       <Cal
         namespace="15-min-meeting"
@@ -78,6 +84,6 @@ export default function StartProject() {
         style={{ width: "100%", height: "100%", overflow: "scroll" }}
         config={{ layout: "month_view" }}
       />
-    </div>
+    </motion.div>
   );
 }
