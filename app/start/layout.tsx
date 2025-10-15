@@ -1,5 +1,10 @@
 import type { ReactNode } from "react"
+import PageTransition from "@/components/page-transition"
 
 export default function StartLayout({ children }: { children: ReactNode }) {
-  return children
+  return (
+    <PageTransition>
+      {children}
+    </PageTransition>
+  )
 }
