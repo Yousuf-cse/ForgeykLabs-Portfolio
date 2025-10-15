@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 
 const faqs = [
@@ -101,14 +101,21 @@ export default function Faq() {
                   }`}
                 />
               </button>
-              {openItem === faq.id && (
-                <div
-                  id={`faq-answer-${faq.id}`}
-                  className="mt-2 text-gray-700 dark:text-gray-300"
-                >
-                  {faq.answer}
-                </div>
-              )}
+              <AnimatePresence>
+                {openItem === faq.id && (
+                  <motion.div
+                    id={`faq-answer-${faq.id}`}
+                    className="mt-2 text-gray-700 dark:text-gray-300"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    {faq.answer}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
