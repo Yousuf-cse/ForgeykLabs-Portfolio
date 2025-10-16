@@ -1,55 +1,57 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Header from "@/components/landing-page/header"
-import Footer from "@/components/landing-page/footer"
-import PortfolioMasonryGridFinal from "./portfolio-masonry-grid-final"
-import PortfolioFilters from "./portfolio-filters"
-import type { PortfolioItem } from "@/utils/csv-parser"
-import ProblemWhy from "./problem-why"
-import Testimonials from "./testimonials"
+import { useState, useEffect } from "react";
+import Header from "@/components/landing-page/header";
+import Footer from "@/components/landing-page/footer";
+import PortfolioMasonryGridFinal from "./portfolio-masonry-grid-final";
+import PortfolioFilters from "./portfolio-filters";
+import type { PortfolioItem } from "@/utils/csv-parser";
+import ProblemWhy from "./problem-why";
+import Testimonials from "./testimonials";
 
 interface PortfolioPageProps {
-  initialData: PortfolioItem[]
+  initialData: PortfolioItem[];
 }
 
 export default function PortfolioPage({ initialData }: PortfolioPageProps) {
-  const [activeFilter, setActiveFilter] = useState<string>("all")
-  const [isLoading, setIsLoading] = useState(true)
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [isLoading, setIsLoading] = useState(true);
 
   // Add a loading state to prevent layout shifts
   useEffect(() => {
     // Simulate loading of images
     const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 500)
+      setIsLoading(false);
+    }, 500);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredItems =
-    activeFilter === "all" ? initialData : initialData.filter((item) => item.categories?.includes(activeFilter))
+    activeFilter === "all"
+      ? initialData
+      : initialData.filter((item) => item.categories?.includes(activeFilter));
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#111111]">
       <Header />
       <div className="container pt-8 pb-20">
-        <div className="mb-12">
+        <div className="mb-12 flex flex-col items-center justify-end">
           <h1 className="text-4xl md:text-5xl font-medium text-black dark:text-white mb-4">
             Our <span className="text-[#7A7FEE]">Portfolio</span>
           </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-2xl">
-            Explore our latest projects and case studies. From AI-driven automation to custom marketplaces, our work
-            helps businesses scale smarter.
+          <p className="text-gray-700 dark:text-gray-300 max-w-2xl text-center">
+            Discover the platforms and digital solutions we've crafted. From
+            custom web platforms to scalable digital products, our work is built
+            to help businesses operate smoother and grow with confidence.
           </p>
         </div>
 
-        <ProblemWhy />
-
-        <Testimonials />
-
         {/* Projects filters + grid */}
-        <PortfolioFilters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+        <PortfolioFilters
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+        />
 
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,5 +68,5 @@ export default function PortfolioPage({ initialData }: PortfolioPageProps) {
       </div>
       <Footer />
     </main>
-  )
+  );
 }
