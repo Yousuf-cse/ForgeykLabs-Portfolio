@@ -1,13 +1,13 @@
 export interface PortfolioItem {
-  slug: string
-  title: string
-  logo: string
-  mainImage: string
-  shortDescription: string
-  projectUrl: string
-  content: string
-  sortOrder: string
-  categories?: string[] // We'll add this for filtering
+  slug: string;
+  title: string;
+  logo: string;
+  mainImage: string;
+  shortDescription: string;
+  projectUrl: string;
+  content: string;
+  sortOrder: string;
+  categories?: string[]; // We'll add this for filtering
 }
 
 // Add a check for client-side environment at the top of the fetchPortfolioData function
@@ -15,7 +15,7 @@ export interface PortfolioItem {
 export async function fetchPortfolioData(): Promise<PortfolioItem[]> {
   // Use a cache to avoid refetching the data multiple times
   if (typeof window !== "undefined" && (window as any).__portfolioCache) {
-    return (window as any).__portfolioCache
+    return (window as any).__portfolioCache;
   }
 
   try {
@@ -23,25 +23,25 @@ export async function fetchPortfolioData(): Promise<PortfolioItem[]> {
     const response = await fetch("/data/portfolio-sample.csv", {
       // Add cache: 'no-store' for server components to always fetch fresh data
       cache: typeof window === "undefined" ? "no-store" : "default",
-    })
+    });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch portfolio CSV: ${response.status}`)
+      throw new Error(`Failed to fetch portfolio CSV: ${response.status}`);
     }
 
-    const csvText = await response.text()
-    const parsedData = parseCSV(csvText)
+    const csvText = await response.text();
+    const parsedData = parseCSV(csvText);
 
     // Cache the data on the client side
     if (typeof window !== "undefined") {
-      ;(window as any).__portfolioCache = parsedData
+      (window as any).__portfolioCache = parsedData;
     }
 
-    return parsedData
+    return parsedData;
   } catch (error) {
-    console.error("Error fetching portfolio data:", error)
+    console.error("Error fetching portfolio data:", error);
     // Return fallback sample data if CSV fails to load
-    return getFallbackPortfolioData()
+    return getFallbackPortfolioData();
   }
 }
 
@@ -49,47 +49,49 @@ export async function fetchPortfolioData(): Promise<PortfolioItem[]> {
 function getFallbackPortfolioData(): PortfolioItem[] {
   return [
     {
-      slug: "sample-saas-platform",
-      title: "TaskFlow Pro",
-      logo: "/taskflow-logo.jpg",
-      mainImage: "/portfolio-images/saas-dashboard-1.jpg",
-      shortDescription: "AI-powered task management platform for teams",
-      projectUrl: "https://example.com",
-      content: `<h3>Project Overview</h3><p>TaskFlow Pro is a comprehensive task management platform that leverages AI to help teams prioritize work and optimize productivity. Built with modern web technologies, it features real-time collaboration, intelligent task suggestions, and advanced analytics.</p><h3>Key Features</h3><ul><li>AI-powered task prioritization</li><li>Real-time team collaboration</li><li>Advanced project analytics</li><li>Custom workflow automation</li><li>Mobile-responsive design</li></ul><h3>Technologies Used</h3><p>This project was built using React, Node.js, PostgreSQL, and OpenAI's API for intelligent task suggestions. The platform handles over 10,000 active users and processes millions of tasks monthly.</p>`,
-      sortOrder: "2024-01-15",
-      categories: ["all", "web", "ai"],
+      slug: "Company Portfolio",
+      title: "Arab Sign Craft",
+      logo: "https://res.cloudinary.com/dpw89wko7/image/upload/v1754664457/ArabSIgnCraftLogoFinalsvg_ygfihi.svg",
+      mainImage: "/portfolio-images/arab-sign-craft-1.png",
+      shortDescription: "A Premium Company Portfolio of a Sign Craft Company",
+      projectUrl: "https://arabsigncraft.xyz",
+      content: `<h3>Project Overview</h3><p>Arab Sign Craft is a professional signage manufacturing and installation business. The project involved building a modern and visually appealing full-stack website to showcase their services and past work</p><h3>Key Features</h3><ul><li>High-impact fullscreen Work Gallery layout</li><li>Clean, professional UI tailored for a non-technical business audience</li><li>Smooth image transitions and responsive display handling different aspect ratios</li><li>Service showcase sections with clear call-to-action emphasis</li><li>Optimized navigation and layout for client presentation and future scalability</li></ul><h3>Technologies Used</h3><p>The website was built using React (frontend) with a strong focus on UI/UX. The project prototype managed all data on the frontend side, ensuring quick interactions for showcasing to the client. The structure is designed to easily integrate backend functionality in later phases</p>`,
+      sortOrder: "2025-06-15",
+      categories: ["all", "web", "Portfolio"],
     },
     {
-      slug: "ecommerce-marketplace",
-      title: "ShopConnect",
-      logo: "/shopconnect-logo.jpg",
-      mainImage: "/portfolio-images/ecommerce-interface-1.jpg",
-      shortDescription: "Multi-vendor marketplace with AI recommendations",
-      projectUrl: "https://example.com",
-      content: `<h3>Project Overview</h3><p>ShopConnect is a modern multi-vendor marketplace that connects buyers with sellers through an intuitive platform. The system features AI-powered product recommendations, advanced search capabilities, and seamless payment processing.</p><h3>Key Features</h3><ul><li>Multi-vendor management system</li><li>AI-powered product recommendations</li><li>Advanced search and filtering</li><li>Secure payment processing</li><li>Vendor analytics dashboard</li><li>Mobile app integration</li></ul><h3>Technical Implementation</h3><p>Built with Next.js, Stripe for payments, and a microservices architecture. The platform supports thousands of vendors and processes over $1M in transactions monthly.</p>`,
-      sortOrder: "2024-01-10",
-      categories: ["all", "web", "ai"],
+      slug: "Gym Management System",
+      title: "Fit Culture Gym",
+      logo: "", //need to add
+      mainImage: "/portfolio-images/fit-culture-gym-2.png",
+      shortDescription: "A Gym Management System For The Admin",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>Fit Culture Gym Management System is an interactive prototype designed to help fitness centers manage their members efficiently. The focus was on building a highly polished frontend experience to showcase the workflow to a non-technical client, with smooth UI interactions and category-based member filtering for better clarity and professionalism.</p><h3>Key Features</h3><ul><li>Add new members with structured detail input</li><li>Dynamic Members List with instant frontend rendering</li><li>Smart categorization</li><li>Clean dashboard layout designed for easy client demonstration</li><li>UI/UX optimized to make the prototype feel like a fully developed SaaS product</li><li>Mobile Responsive</li></ul><h3>Technical Implementation</h3><p>The system was developed using React + Tailwind CSS (frontend) and PostgreSQL with NenoDB (backend/database). The backend handles structured data storage and retrieval, while the frontend delivers a responsive and modern user experience, closely aligned with SaaS product standards.</p>`,
+      sortOrder: "2025-07-10",
+      categories: ["all", "web", "management"],
     },
     {
-      slug: "ai-content-generator",
-      title: "ContentAI Studio",
-      logo: "/contentai-logo.jpg",
-      mainImage: "/portfolio-images/ai-platform-1.jpg",
-      shortDescription: "AI-powered content creation platform for marketers",
-      projectUrl: "https://example.com",
-      content: `<h3>Project Overview</h3><p>ContentAI Studio revolutionizes content creation by providing marketers with AI-powered tools to generate high-quality blog posts, social media content, and marketing copy in minutes rather than hours.</p><h3>Key Features</h3><ul><li>Multi-format content generation</li><li>Brand voice customization</li><li>SEO optimization tools</li><li>Content calendar integration</li><li>Team collaboration features</li><li>Performance analytics</li></ul><h3>Impact & Results</h3><p>The platform has helped over 500 marketing teams reduce content creation time by 70% while maintaining quality. Built with React, Python, and integrated with multiple AI models for optimal results.</p>`,
-      sortOrder: "2024-01-05",
-      categories: ["all", "web", "ai"],
+      slug: "Club Portfolio",
+      title: "Club 404 (Non-Profitable)",
+      logo: "/Club-404-logo.jpg", 
+      mainImage: "/portfolio-images/club-404-1.png",
+      shortDescription: "A Animated Portfolio for a College Coding Club",
+      projectUrl: "https://club404-page.vercel.app/",
+      content: `<h3>Project Overview</h3><p>Club 404 Portfolio is a digital identity platform designed for a tech-driven community to showcase its members, events, and projects. The goal was to create a developer-styled portfolio website with a modern, dark-themed aesthetic inspired by Brutalistic culture. The platform positions Club 404 as a serious tech collective, helping attract new members, collaborations, and potential sponsors.</p><h3>Key Features</h3><ul><li>Developer-themed UI with Brutalistic dark interface and glitch/terminal-inspired design elements</li><li>Brand voice customization</li><li>Sections for community introduction, core team, events, and project showcases</li><li>Dynamic layout to highlight active initiatives and achievements</li><li>Smooth scrolling and modern portfolio-style page transitions</li><li>Responsive design optimized for desktop-first tech audience</li></ul><h3>Technologies Used</h3><p>Built using React, Tailwind CSS, and Framer Motion, the website delivers a high-performance and visually engaging portfolio experience. The architecture is lightweight and modular, making it easy to scale with additional dynamic content or CMS integration."</p>`,
+      sortOrder: "2024-09-25",
+      categories: ["all", "web", "portfolio"],
     },
-  ]
+  ];
 }
 
 function parseCSV(csvText: string): PortfolioItem[] {
   // Split the CSV into lines
-  const lines = csvText.split("\n")
+  const lines = csvText.split("\n");
 
   // Extract headers (first line)
-  const headers = lines[0].split(",").map((header) => header.trim().replace(/^"/, "").replace(/"$/, ""))
+  const headers = lines[0]
+    .split(",")
+    .map((header) => header.trim().replace(/^"/, "").replace(/"$/, ""));
 
   // Map CSV columns to our interface properties
   const columnMap: Record<string, keyof PortfolioItem> = {
@@ -101,65 +103,65 @@ function parseCSV(csvText: string): PortfolioItem[] {
     "Project URL": "projectUrl",
     Content: "content",
     "Sort Order": "sortOrder",
-  }
+  };
 
   // Parse the data rows
-  const items: PortfolioItem[] = []
+  const items: PortfolioItem[] = [];
 
   for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue // Skip empty lines
+    if (!lines[i].trim()) continue; // Skip empty lines
 
     // Handle CSV values that might contain commas within quotes
-    const values: string[] = []
-    let currentValue = ""
-    let insideQuotes = false
+    const values: string[] = [];
+    let currentValue = "";
+    let insideQuotes = false;
 
     for (let j = 0; j < lines[i].length; j++) {
-      const char = lines[i][j]
+      const char = lines[i][j];
 
       if (char === '"') {
-        insideQuotes = !insideQuotes
+        insideQuotes = !insideQuotes;
       } else if (char === "," && !insideQuotes) {
-        values.push(currentValue.trim().replace(/^"/, "").replace(/"$/, ""))
-        currentValue = ""
+        values.push(currentValue.trim().replace(/^"/, "").replace(/"$/, ""));
+        currentValue = "";
       } else {
-        currentValue += char
+        currentValue += char;
       }
     }
 
     // Add the last value
-    values.push(currentValue.trim().replace(/^"/, "").replace(/"$/, ""))
+    values.push(currentValue.trim().replace(/^"/, "").replace(/"$/, ""));
 
     // Create the portfolio item
-    const item: Partial<PortfolioItem> = {}
+    const item: Partial<PortfolioItem> = {};
 
     // Map values to properties
     headers.forEach((header, index) => {
-      const key = columnMap[header]
+      const key = columnMap[header];
       if (key && index < values.length) {
-        item[key] = values[index]
+        item[key] = values[index];
       }
-    })
+    });
 
     // Add categories based on content or title for filtering
-    item.categories = inferCategories(item as PortfolioItem)
+    item.categories = inferCategories(item as PortfolioItem);
 
-    items.push(item as PortfolioItem)
+    items.push(item as PortfolioItem);
   }
 
   // Sort by sortOrder
   return items.sort((a, b) => {
-    return new Date(b.sortOrder).getTime() - new Date(a.sortOrder).getTime()
-  })
+    return new Date(b.sortOrder).getTime() - new Date(a.sortOrder).getTime();
+  });
 }
 
 function inferCategories(item: PortfolioItem): string[] {
-  const categories: string[] = ["all"]
+  const categories: string[] = ["all"];
 
   // Add categories based on content keywords
-  const contentLower = (item.content || "").toLowerCase()
-  const titleLower = (item.title || "").toLowerCase()
-  const descriptionLower = (item.shortDescription || "").toLowerCase()
+  const contentLower = (item.content || "").toLowerCase();
+  const titleLower = (item.title || "").toLowerCase();
+  const descriptionLower = (item.shortDescription || "").toLowerCase();
 
   if (
     contentLower.includes("web3") ||
@@ -170,7 +172,7 @@ function inferCategories(item: PortfolioItem): string[] {
     titleLower.includes("crypto") ||
     titleLower.includes("blockchain")
   ) {
-    categories.push("web3")
+    categories.push("web3");
   }
 
   if (
@@ -179,7 +181,7 @@ function inferCategories(item: PortfolioItem): string[] {
     contentLower.includes("nocode") ||
     contentLower.includes("no code")
   ) {
-    categories.push("bubble")
+    categories.push("bubble");
   }
 
   if (
@@ -190,7 +192,7 @@ function inferCategories(item: PortfolioItem): string[] {
     titleLower.includes("content") ||
     descriptionLower.includes("ai-powered")
   ) {
-    categories.push("ai")
+    categories.push("ai");
   }
 
   if (
@@ -199,7 +201,7 @@ function inferCategories(item: PortfolioItem): string[] {
     contentLower.includes("android") ||
     titleLower.includes("app")
   ) {
-    categories.push("mobile")
+    categories.push("mobile");
   }
 
   if (
@@ -208,13 +210,13 @@ function inferCategories(item: PortfolioItem): string[] {
     contentLower.includes("ux") ||
     contentLower.includes("interface")
   ) {
-    categories.push("design")
+    categories.push("design");
   }
 
   // Default to "web" if no specific category is found
   if (categories.length === 1) {
-    categories.push("web")
+    categories.push("web");
   }
 
-  return categories
+  return categories;
 }
