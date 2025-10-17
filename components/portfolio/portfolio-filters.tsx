@@ -1,5 +1,9 @@
 "use client"
 
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { staggerContainer, scaleIn } from "@/lib/animations";
+
 interface PortfolioFiltersProps {
   activeFilter: string
   setActiveFilter: (filter: string) => void
@@ -16,11 +20,24 @@ export default function PortfolioFilters({ activeFilter, setActiveFilter }: Port
     { id: "mobile", label: "Mobile Apps" },
   ]
 
+const sectionRef = useRef(null)
+const isInView = useInView(sectionRef, { 
+  once: false,
+  amount: 0.5
+})
+
   return (
-    <div className="mb-8 flex flex-wrap gap-2">
+    <div ref={sectionRef}>
+    <motion.div  
+    variants={staggerContainer}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+       className="mb-8 flex flex-wrap gap-2">
+        
       {filters.map((filter) => (
-        <button
+        <motion.button
           key={filter.id}
+          variants={scaleIn}
           onClick={() => setActiveFilter(filter.id)}
           className={`px-4 py-2 rounded-md text-sm transition-colors ${
             activeFilter === filter.id
@@ -29,8 +46,9 @@ export default function PortfolioFilters({ activeFilter, setActiveFilter }: Port
           }`}
         >
           {filter.label}
-        </button>
+        </motion.button>
       ))}
+    </motion.div>
     </div>
   )
 }
