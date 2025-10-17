@@ -62,7 +62,9 @@ export default function Header() {
 
   // Determine which logo to show based on theme
   const logoSrc =
-    mounted && resolvedTheme === "dark" ? "/logo-light.png" : "/logo-dark.png";
+    mounted && resolvedTheme === "dark"
+      ? "/logo-dark-transparent.png"
+      : "/logo-light-transparent.png";
 
   return (
     <>
@@ -71,9 +73,7 @@ export default function Header() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${
-          isScrolled
-            ? "bg-white/90 dark:bg-[#111111]/5 backdrop-blur-sm shadow-sm"
-            : "bg-transparent"
+          isScrolled ? "bg-white/5 dark:bg-[#111111]/5" : "bg-transparent"
         }`}
       >
         <div className="container py-4">
@@ -85,20 +85,20 @@ export default function Header() {
             >
               {/* Use a div with the same dimensions during SSR to prevent layout shift */}
               {mounted ? (
-                // <Image
-                //   src={logoSrc || "/placeholder.svg"}
-                //   alt="Automatic Logo"
-                //   width={200}
-                //   height={50}
-                //   className="h-12 w-auto"
-                //   priority
-                // />
-                <div className=" ">
-                  <h1 className={`text-[#7A7FEE] text-3xl font-bold`}>
-                    Forgeyk Labs
-                  </h1>
-                </div>
+                <Image
+                  src={logoSrc || "/placeholder.svg"}
+                  alt="ForgeYk Labs Logo"
+                  width={200}
+                  height={50}
+                  className="h-12 w-auto"
+                  priority
+                />
               ) : (
+                // <div className=" ">
+                //   <h1 className={`text-[#7A7FEE] text-3xl font-bold`}>
+                //     Forgeyk Labs
+                //   </h1>
+                // </div>
                 <div className="h-12 w-[200px]" />
               )}
             </Link>

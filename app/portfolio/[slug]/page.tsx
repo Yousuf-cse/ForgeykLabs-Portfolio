@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PortfolioDetailProps, parent:
   }
 
   return {
-    title: `${project.title} | Automatic Portfolio`,
+    title: `${project.title} | ForgeYK labs Portfolio`,
     description: project.shortDescription,
     openGraph: {
       images: [project.mainImage],

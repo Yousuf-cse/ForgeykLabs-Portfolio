@@ -18,7 +18,7 @@ export default function Footer() {
 
   // Determine which logo to show based on theme
   const logoSrc =
-    mounted && resolvedTheme === "dark" ? "/logo-light.png" : "/logo-dark.png";
+    mounted && resolvedTheme === "dark" ? "/logo-dark-transparent.png" : "/logo-light-transparent.png";
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
@@ -39,17 +39,17 @@ export default function Footer() {
       >
         <Link href="/" className="flex items-center justify-center mb-4">
           {mounted ? (
-            // <Image
-            //   src={logoSrc || "/placeholder.svg"}
-            //   alt="Automatic Logo"
-            //   width={200}
-            //   height={50}
-            //   className="h-12 w-auto"
-            // />
-            <motion.h1 variants={fadeInUp} className="text-2xl">
-              {" "}
-              Forgeyk Labs{" "}
-            </motion.h1>
+            <Image
+              src={logoSrc || "/placeholder.svg"}
+              alt="ForgeYk Labs Logo"
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+            />
+            // <motion.h1 variants={fadeInUp} className="text-2xl">
+            //   {" "}
+            //   Forgeyk Labs{" "}
+            // </motion.h1>
           ) : (
             <div className="h-12 w-[200px]" />
           )}

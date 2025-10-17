@@ -88,7 +88,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   };
 
   // Determine which logo to show based on theme
-  const logoSrc = isDarkMode ? "/logo-light.png" : "/logo-dark.png";
+  const logoSrc = isDarkMode ? "/logo-dark-transparent.png" : "/logo-light-transparent.png";
+
 
   return (
     <AnimatePresence mode="wait">
@@ -122,7 +123,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 {mounted ? (
                   <Image
                     src={logoSrc || "/placeholder.svg"}
-                    alt="Automatic Logo"
+                    alt="ForgeYk Labs Logo"
                     width={150}
                     height={40}
                     className="h-8 w-auto"
@@ -160,7 +161,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 </motion.li>
 
                 {/* Resources Dropdown */}
-                <motion.li
+                {/* <motion.li
                   variants={itemVariants}
                   className="border-b border-gray-200 dark:border-gray-800 pb-1"
                 >
@@ -292,7 +293,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.li>
+                </motion.li> */}
 
                 <motion.li variants={itemVariants}>
                   <Link
