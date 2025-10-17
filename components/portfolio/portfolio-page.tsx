@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/landing-page/header";
 import Footer from "@/components/landing-page/footer";
 import PortfolioMasonryGridFinal from "./portfolio-masonry-grid-final";
 import PortfolioFilters from "./portfolio-filters";
 import type { PortfolioItem } from "@/utils/csv-parser";
+import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 import ProblemWhy from "./problem-why";
 import Testimonials from "./testimonials";
 
@@ -16,6 +18,12 @@ interface PortfolioPageProps {
 export default function PortfolioPage({ initialData }: PortfolioPageProps) {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [isLoading, setIsLoading] = useState(true);
+
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, {
+    once: false,
+    amount: 0.2,
+  });
 
   // Add a loading state to prevent layout shifts
   useEffect(() => {
@@ -33,18 +41,29 @@ export default function PortfolioPage({ initialData }: PortfolioPageProps) {
       : initialData.filter((item) => item.categories?.includes(activeFilter));
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#111111]">
+    <main className="min-h-screen bg-white dark:bg-[#111111]" ref={sectionRef}>
       <Header />
-      <div className="container pt-8 pb-20">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="container pt-8 pb-20"
+      >
         <div className="mb-12 flex flex-col items-center justify-end">
-          <h1 className="text-4xl md:text-5xl font-medium text-black dark:text-white mb-4">
+          <motion.h1
+            variants={fadeInUp}
+            className="text-4xl md:text-5xl font-medium text-black dark:text-white mb-4"
+          >
             Our <span className="text-[#7A7FEE]">Portfolio</span>
-          </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-2xl text-center">
+          </motion.h1>
+          <motion.p
+            variants={fadeInUp}
+            className="text-gray-700 dark:text-gray-300 max-w-2xl text-center"
+          >
             Discover the platforms and digital solutions we've crafted. From
             custom web platforms to scalable digital products, our work is built
             to help businesses operate smoother and grow with confidence.
-          </p>
+          </motion.p>
         </div>
 
         {/* Projects filters + grid */}
@@ -65,7 +84,7 @@ export default function PortfolioPage({ initialData }: PortfolioPageProps) {
         ) : (
           <PortfolioMasonryGridFinal items={filteredItems} />
         )}
-      </div>
+      </motion.div>
       <Footer />
     </main>
   );
