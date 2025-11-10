@@ -54,7 +54,7 @@ function getFallbackPortfolioData(): PortfolioItem[] {
       logo: "https://res.cloudinary.com/dpw89wko7/image/upload/v1754664457/ArabSIgnCraftLogoFinalsvg_ygfihi.svg",
       mainImage: "/portfolio-images/arab-sign-craft-1.png",
       shortDescription: "A Premium Company Portfolio of a Sign Craft Company",
-      projectUrl: "https://arabsigncraft.xyz",
+      projectUrl: "",
       content: `<h3>Project Overview</h3><p>Arab Sign Craft is a professional signage manufacturing and installation business. The project involved building a modern and visually appealing full-stack website to showcase their services and past work</p><h3>Key Features</h3><ul><li>High-impact fullscreen Work Gallery layout</li><li>Clean, professional UI tailored for a non-technical business audience</li><li>Smooth image transitions and responsive display handling different aspect ratios</li><li>Service showcase sections with clear call-to-action emphasis</li><li>Optimized navigation and layout for client presentation and future scalability</li></ul><h3>Technologies Used</h3><p>The website was built using React (frontend) with a strong focus on UI/UX. The project prototype managed all data on the frontend side, ensuring quick interactions for showcasing to the client. The structure is designed to easily integrate backend functionality in later phases</p>`,
       sortOrder: "2025-06-15",
       categories: ["all", "web", "Portfolio"],
@@ -70,17 +70,28 @@ function getFallbackPortfolioData(): PortfolioItem[] {
       sortOrder: "2025-07-10",
       categories: ["all", "web", "management"],
     },
-    {
-      slug: "Club Portfolio",
-      title: "Club 404 (Non-Profitable)",
-      logo: "/Club-404-logo.jpg", 
-      mainImage: "/portfolio-images/club-404-1.png",
-      shortDescription: "A Animated Portfolio for a College Coding Club",
-      projectUrl: "https://club404-page.vercel.app/",
-      content: `<h3>Project Overview</h3><p>Club 404 Portfolio is a digital identity platform designed for a tech-driven community to showcase its members, events, and projects. The goal was to create a developer-styled portfolio website with a modern, dark-themed aesthetic inspired by Brutalistic culture. The platform positions Club 404 as a serious tech collective, helping attract new members, collaborations, and potential sponsors.</p><h3>Key Features</h3><ul><li>Developer-themed UI with Brutalistic dark interface and glitch/terminal-inspired design elements</li><li>Brand voice customization</li><li>Sections for community introduction, core team, events, and project showcases</li><li>Dynamic layout to highlight active initiatives and achievements</li><li>Smooth scrolling and modern portfolio-style page transitions</li><li>Responsive design optimized for desktop-first tech audience</li></ul><h3>Technologies Used</h3><p>Built using React, Tailwind CSS, and Framer Motion, the website delivers a high-performance and visually engaging portfolio experience. The architecture is lightweight and modular, making it easy to scale with additional dynamic content or CMS integration."</p>`,
-      sortOrder: "2024-09-25",
-      categories: ["all", "web", "portfolio"],
+     {
+      slug: "Wraptalk",
+      title: "NPM Package",
+      logo: "", //need to add
+      mainImage: "/portfolio-images/wraptalk-thumbnail.png",
+      shortDescription: "An NPM Package for react app",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>WrapTalk is a simple and efficient translation package for React applications. It allows developers to wrap text components and manage translations seamlessly using AI-generated translations.</p><h3>Key Features</h3><ul><li>Easy-to-use <TranslateThis> component for text translation.</li><li>AI-generated translations using the Gemini AI.</li><li>Supports storing and managing translations in JSON files.</li></ul>`,
+      sortOrder: "2025-03-28",
+      categories: ["all", "web", "ai solutions"],
     },
+    // {
+    //   slug: "Club Portfolio",
+    //   title: "Club 404 (Non-Profitable)",
+    //   logo: "/Club-404-logo.jpg", 
+    //   mainImage: "/portfolio-images/club-404-1.png",
+    //   shortDescription: "A Animated Portfolio for a College Coding Club",
+    //   projectUrl: "https://club404-page.vercel.app/",
+    //   content: `<h3>Project Overview</h3><p>Club 404 Portfolio is a digital identity platform designed for a tech-driven community to showcase its members, events, and projects. The goal was to create a developer-styled portfolio website with a modern, dark-themed aesthetic inspired by Brutalistic culture. The platform positions Club 404 as a serious tech collective, helping attract new members, collaborations, and potential sponsors.</p><h3>Key Features</h3><ul><li>Developer-themed UI with Brutalistic dark interface and glitch/terminal-inspired design elements</li><li>Brand voice customization</li><li>Sections for community introduction, core team, events, and project showcases</li><li>Dynamic layout to highlight active initiatives and achievements</li><li>Smooth scrolling and modern portfolio-style page transitions</li><li>Responsive design optimized for desktop-first tech audience</li></ul><h3>Technologies Used</h3><p>Built using React, Tailwind CSS, and Framer Motion, the website delivers a high-performance and visually engaging portfolio experience. The architecture is lightweight and modular, making it easy to scale with additional dynamic content or CMS integration."</p>`,
+    //   sortOrder: "2024-09-25",
+    //   categories: ["all", "web", "portfolio"],
+    // },
   ];
 }
 
