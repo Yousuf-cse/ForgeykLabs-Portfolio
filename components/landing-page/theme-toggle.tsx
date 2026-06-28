@@ -25,6 +25,7 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
   return (
     <button
+      id="theme-toggle-button"
       onClick={() => setTheme(isDarkMode ? "light" : "dark")}
       className={`p-2 rounded-full transition-colors bg-transparent ${
         isDarkMode ? "hover:bg-gray-800/20" : "hover:bg-gray-200/50"

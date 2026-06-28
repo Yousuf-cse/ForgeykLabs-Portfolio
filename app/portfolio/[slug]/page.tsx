@@ -16,15 +16,35 @@ export async function generateMetadata({ params }: PortfolioDetailProps, parent:
   if (!project) {
     return {
       title: "Project Not Found | Forgeyk Labs",
-      description: "The requested Page could not be found.",
+      description: "The requested project could not be found.",
     }
   }
 
+  const cleanTitle = `${project.title} - Case Study`;
+  const cleanDescription = `${project.shortDescription}. Read the full case study on how Forgeyk Labs designed and engineered this professional solution.`;
+
   return {
-    title: `${project.title} | ForgeYK labs Portfolio`,
-    description: project.shortDescription,
+    title: cleanTitle,
+    description: cleanDescription,
     openGraph: {
-      images: [project.mainImage],
+      title: `${cleanTitle} | Forgeyk Labs Portfolio`,
+      description: cleanDescription,
+      url: `https://forgeyklabs.com/portfolio/${project.slug}`,
+      type: "article",
+      images: [
+        {
+          url: project.mainImage || "/logo-dark-text.png",
+          width: 1200,
+          height: 630,
+          alt: `${project.title} Case Study Image`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${cleanTitle} | Forgeyk Labs Portfolio`,
+      description: cleanDescription,
+      images: [project.mainImage || "/logo-dark-text.png"],
     },
   }
 }

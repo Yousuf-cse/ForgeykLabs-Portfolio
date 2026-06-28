@@ -37,7 +37,11 @@ export default function Footer() {
         animate={isInView ? "visible" : "hidden"}
         className="flex flex-col items-center text-center"
       >
-        <Link href="/" className="flex items-center justify-center mb-4">
+        <Link
+          id="footer-logo-link"
+          href="/"
+          className="flex items-center justify-center mb-4"
+        >
           {mounted ? (
             <Image
               src={logoSrc || "/placeholder.svg"}
