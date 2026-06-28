@@ -15,12 +15,70 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: "Forgeyk Labs - Your Business Website Partner",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://forgeyklabs.com"),
+  title: {
+    default: "Forgeyk Labs - Premium Hand-Coded Business Websites",
+    template: "%s | Forgeyk Labs"
+  },
   description:
-    "We build high quality, scalable, and fully hand-coded websites for businesses. From client portals to marketplaces, we craft every line of code with precision and zero shortcuts",
+    "We build high-quality, scalable, and fully hand-coded websites for businesses. From client portals to marketplaces, we craft every line of code with precision and zero shortcuts.",
+  keywords: [
+    "Forgeyk Labs",
+    "Forgeyk",
+    "Web Development Agency",
+    "Custom Web Applications",
+    "Software Development",
+    "Next.js Development",
+    "Tailwind CSS",
+    "React Agency",
+    "Client Portals",
+    "Multi-vendor Marketplaces",
+    "Hand-coded Websites",
+    "Premium Web Design",
+    "Vibrant CSS Animations",
+    "SaaS Development"
+  ],
+  authors: [{ name: "Forgeyk Labs", url: "https://forgeyklabs.com" }],
+  creator: "Forgeyk Labs",
+  publisher: "Forgeyk Labs",
   icons: {
     icon: [{ url: "/logo/forgeyk-labs-logo-topbar-light.png", type: "image/png" }],
     apple: [{ url: "/logo/forgeyk-labs-logo-topbar-light.png" }],
+  },
+  openGraph: {
+    title: "Forgeyk Labs - Premium Hand-Coded Business Websites",
+    description: "We build high-quality, scalable, and fully hand-coded websites, SaaS apps, client portals, and marketplaces with precision and zero shortcuts.",
+    url: "https://forgeyklabs.com",
+    siteName: "Forgeyk Labs",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/logo-dark-text.png",
+        width: 1200,
+        height: 630,
+        alt: "Forgeyk Labs - Premium Hand-Coded Business Websites",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Forgeyk Labs - Premium Hand-Coded Business Websites",
+    description: "We build high-quality, scalable, and fully hand-coded websites, SaaS apps, client portals, and marketplaces with precision and zero shortcuts.",
+    images: ["/logo-dark-text.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

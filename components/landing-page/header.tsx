@@ -79,6 +79,7 @@ export default function Header() {
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <Link
+              id="nav-logo-link"
               href="/"
               className="flex items-center"
               onClick={handleLogoClick}
@@ -117,6 +118,7 @@ export default function Header() {
                   </li> */}
                   <li>
                     <Link
+                      id="nav-portfolio-link"
                       href="/portfolio"
                       className={`transition-colors ${
                         pathname === "/portfolio"
@@ -129,6 +131,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
+                      id="nav-start-link"
                       href="/start"
                       className={`transition-colors ${
                         pathname === "/start"
@@ -146,6 +149,7 @@ export default function Header() {
 
               {/* Mobile Menu Button */}
               <button
+                id="mobile-menu-trigger"
                 onClick={() => setMobileMenuOpen(true)}
                 className="p-2 rounded-md bg-transparent hover:bg-gray-200/50 dark:hover:bg-gray-800/20 md:hidden"
                 aria-label="Toggle menu"

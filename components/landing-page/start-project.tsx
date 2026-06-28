@@ -70,10 +70,10 @@ export default function StartProject() {
         viewport={{ once: false, amount: 0.2 }}
          className="min-h-screen bg-white dark:bg-[#111111]">
       <div className="mb-8 text-center pt-8">
-        <motion.h2 variants={fadeInUp} className="text-black dark:text-white text-3xl md:text-5xl font-medium">
+        <motion.h1 variants={fadeInUp} className="text-black dark:text-white text-3xl md:text-5xl font-medium">
           Ready to Start <br />
           Your Next <span className="text-[#7A7FEE]">Project</span>?
-        </motion.h2>
+        </motion.h1>
         <motion.p variants={fadeInUp} className="text-white text-base md:text-lg leading-relaxed mt-4">
           schedule a call with your project manager
         </motion.p>
