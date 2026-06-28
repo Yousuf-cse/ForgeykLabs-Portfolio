@@ -8,8 +8,8 @@ import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 export default function CallToAction() {
   const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, {
-      once: false,
-      amount: 0.2,
+      once: true,
+      amount: 0.05,
     });
 
   return (

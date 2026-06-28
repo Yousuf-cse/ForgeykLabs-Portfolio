@@ -21,8 +21,8 @@ export default function PortfolioPage({ initialData }: PortfolioPageProps) {
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.2,
+    once: true,
+    amount: 0.05,
   });
 
   // Add a loading state to prevent layout shifts

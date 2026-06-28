@@ -25,8 +25,8 @@ export default function PortfolioFilters({
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.5,
+    once: true,
+    amount: 0.05,
   });
 
   return (

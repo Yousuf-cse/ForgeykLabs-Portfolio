@@ -8,6 +8,10 @@ export interface PortfolioItem {
   content: string;
   sortOrder: string;
   categories?: string[]; // We'll add this for filtering
+  isConfidential?: boolean;
+  role?: string;
+  highlights?: string[];
+  tech?: string[];
 }
 
 // Add a check for client-side environment at the top of the fetchPortfolioData function
@@ -17,6 +21,8 @@ export async function fetchPortfolioData(): Promise<PortfolioItem[]> {
   if (typeof window !== "undefined" && (window as any).__portfolioCache) {
     return (window as any).__portfolioCache;
   }
+
+  let baseData: PortfolioItem[] = [];
 
   try {
     // Use local sample file as primary source for template
@@ -30,19 +36,27 @@ export async function fetchPortfolioData(): Promise<PortfolioItem[]> {
     }
 
     const csvText = await response.text();
-    const parsedData = parseCSV(csvText);
-
-    // Cache the data on the client side
-    if (typeof window !== "undefined") {
-      (window as any).__portfolioCache = parsedData;
-    }
-
-    return parsedData;
+    baseData = parseCSV(csvText);
   } catch (error) {
     console.error("Error fetching portfolio data:", error);
     // Return fallback sample data if CSV fails to load
-    return getFallbackPortfolioData();
+    baseData = getFallbackPortfolioData();
   }
+
+  // Combine with confidential projects
+  const allData = [...baseData, ...getConfidentialProjects()];
+
+  // Sort by date descending
+  const sortedData = allData.sort((a, b) => {
+    return new Date(b.sortOrder).getTime() - new Date(a.sortOrder).getTime();
+  });
+
+  // Cache the data on the client side
+  if (typeof window !== "undefined") {
+    (window as any).__portfolioCache = sortedData;
+  }
+
+  return sortedData;
 }
 
 // Fallback data in case CSV file fails to load
@@ -269,6 +283,119 @@ export function getProjectImage(item: PortfolioItem, theme: string | undefined):
       ? "/project-banner/forgeyklabs-project3-dark.png" 
       : "/project-banner/forgeyklabs-project3-light.png";
   }
+
+  if (slugLower.includes("saas-backend") || titleLower.includes("saas backend")) {
+    return isDark 
+      ? "/nda-covers/nda-cover-1-dark.png" 
+      : "/nda-covers/nda-cover-1-light.png";
+  }
+
+  if (slugLower.includes("system-dashboard") || titleLower.includes("system dashboard")) {
+    return isDark 
+      ? "/nda-covers/nda-cover-2-dark.png" 
+      : "/nda-covers/nda-cover-2-light.png";
+  }
+
+  if (slugLower.includes("management-portal") || titleLower.includes("management portal")) {
+    return isDark 
+      ? "/nda-covers/nda-cover-3-dark.png" 
+      : "/nda-covers/nda-cover-3-light.png";
+  }
+
+  if (slugLower.includes("saas-landing") || titleLower.includes("saas landing")) {
+    return isDark 
+      ? "/nda-covers/nda-cover-4-dark.png" 
+      : "/nda-covers/nda-cover-4-light.png";
+  }
   
   return item.mainImage || "/placeholder.svg?height=600&width=800&query=project";
+}
+
+export function getConfidentialProjects(): PortfolioItem[] {
+  return [
+    {
+      slug: "enterprise-saas-backend",
+      title: "Enterprise SaaS Backend",
+      logo: "",
+      mainImage: "",
+      shortDescription: "Scalable backend for production SaaS.",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>This backend system was custom engineered to support an enterprise SaaS platform with massive transactional scale. It handles secure user management, robust API services, complex data flows, and infrastructure deployments.</p><h3>Key Features</h3><ul><li>REST API Development with comprehensive testing and documentation</li><li>Secure JWT-based authentication & role-based authorization</li><li>Optimized relational database architecture utilizing PostgreSQL and Supabase</li><li>Performance optimization for high-throughput transactional API requests</li><li>Containerized production deployment using Docker and automated pipelines</li></ul>`,
+      sortOrder: "2025-01-20",
+      categories: ["all", "web"],
+      isConfidential: true,
+      role: "Backend Engineering",
+      highlights: [
+        "REST API Development",
+        "Authentication & Authorization",
+        "Database Design",
+        "Performance Optimization",
+        "Production Deployment"
+      ],
+      tech: ["Node.js", "Express", "PostgreSQL", "Supabase", "JWT", "Docker"]
+    },
+    {
+      slug: "management-system-dashboard",
+      title: "Management System Dashboard",
+      logo: "",
+      mainImage: "",
+      shortDescription: "Responsive dashboard for internal operations.",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>An internal operational dashboard crafted for operational efficiency. It offers advanced real-time charts, flexible data sorting/filtering tables, and full responsive usability.</p><h3>Key Features</h3><ul><li>Custom analytics charts for tracking team operational metrics</li><li>Highly reusable component library for consistent UI patterns</li><li>Advanced interactive data tables with custom filters and search utilities</li><li>Fully optimized state management and API caching via TanStack Query</li><li>Responsive desktop and mobile presentation</li></ul>`,
+      sortOrder: "2025-01-15",
+      categories: ["all", "web", "design"],
+      isConfidential: true,
+      role: "Frontend Development",
+      highlights: [
+        "Dashboard UI",
+        "Analytics",
+        "Data Tables",
+        "API Integration",
+        "Responsive Design"
+      ],
+      tech: ["React", "Tailwind CSS", "TypeScript", "TanStack Query"]
+    },
+    {
+      slug: "enterprise-management-portal",
+      title: "Enterprise Management Portal",
+      logo: "",
+      mainImage: "",
+      shortDescription: "Enterprise portal for inventory workflows.",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>An enterprise portal focused on logistics and role-based operational permissions. It coordinates inventory actions, schedules reports, and tracks assets across multiple facilities.</p><h3>Key Features</h3><ul><li>Dynamic role-based interfaces adjusting visual controls for admins vs managers</li><li>Advanced forms with robust real-time inputs and data validation</li><li>Complex reporting tables, tracking logs, and visual charting indicators</li><li>Highly responsive multi-device accessibility</li><li>Fluid UI animations via Framer Motion for enhanced transitions</li></ul>`,
+      sortOrder: "2025-01-10",
+      categories: ["all", "web", "design"],
+      isConfidential: true,
+      role: "Frontend Development",
+      highlights: [
+        "Role-based UI",
+        "Reports",
+        "Forms",
+        "Charts",
+        "Responsive Layout"
+      ],
+      tech: ["React", "Tailwind CSS", "Framer Motion"]
+    },
+    {
+      slug: "high-converting-saas-landing-page",
+      title: "High-Converting SaaS Landing Page",
+      logo: "",
+      mainImage: "",
+      shortDescription: "High-converting SaaS landing page experience.",
+      projectUrl: "",
+      content: `<h3>Project Overview</h3><p>A conversion-optimized product landing experience built for a SaaS startup. Focused on maximizing user conversion rates through responsive typography, storytelling patterns, and fast-loading web transitions.</p><h3>Key Features</h3><ul><li>Responsive UX optimized for cross-browser visual fidelity</li><li>Fast initial load metrics with optimized core web vitals</li><li>Premium interactive layout animations utilizing GSAP</li><li>SEO and search-ready tags and structure</li><li>Conversion-focused Call To Actions (CTAs) and pricing panels</li></ul>`,
+      sortOrder: "2025-01-05",
+      categories: ["all", "web", "design"],
+      isConfidential: true,
+      role: "Frontend Development",
+      highlights: [
+        "Responsive Design",
+        "SEO Ready",
+        "Performance Optimized",
+        "Smooth Animations",
+        "Conversion Focused"
+      ],
+      tech: ["React", "Tailwind CSS", "Vite", "GSAP"]
+    }
+  ];
 }
