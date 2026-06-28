@@ -5,6 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { getProjectImage } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioGridProps {
   items: PortfolioItem[]
@@ -50,12 +52,19 @@ export default function PortfolioGrid({ items }: PortfolioGridProps) {
 }
 
 function PortfolioCard({ item }: { item: PortfolioItem }) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <div className="card overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg">
       <Link href={`/portfolio/${item.slug}`} className="block relative h-full">
         <div className="relative aspect-[4/3] w-full overflow-hidden p-4">
           <Image
-            src={item.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+            src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
             alt={item.title}
             width={800}
             height={600}

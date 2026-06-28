@@ -5,6 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { getProjectImage } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioMasonryGridProps {
   items: PortfolioItem[]
@@ -15,9 +17,12 @@ export default function PortfolioMasonryGridAlt({ items }: PortfolioMasonryGridP
   const [columns, setColumns] = useState(3)
   const [itemHeights, setItemHeights] = useState<Record<string, number>>({})
   const [loaded, setLoaded] = useState(false)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   // Determine number of columns based on screen width
   useEffect(() => {
+    setMounted(true)
     const handleResize = () => {
       if (window.innerWidth < 640) {
         setColumns(1)
@@ -77,7 +82,7 @@ export default function PortfolioMasonryGridAlt({ items }: PortfolioMasonryGridP
               >
                 <div className="relative overflow-hidden">
                   <Image
-                    src={item.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                    src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
                     alt={item.title}
                     width={800}
                     height={600}
