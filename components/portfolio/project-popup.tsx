@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { X, ExternalLink } from "lucide-react"
+import { X, ExternalLink, Lock } from "lucide-react"
 import { useTheme } from "next-themes"
 import { getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
@@ -97,18 +97,39 @@ export default function ProjectPopup({ project, onClose }: ProjectPopupProps) {
                   <X className="h-5 w-5" />
                 </button>
 
-                <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 flex items-center justify-center">
-                  <Image
-                    src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
-                    alt={project.title}
-                    width={800}
-                    height={400}
-                    className="max-w-full h-auto object-contain max-h-[400px]"
-                  />
+                <div className="bg-gray-100 dark:bg-gray-800 rounded-xl mb-6 overflow-hidden">
+                  {project.isConfidential ? (
+                    <div className="relative h-64 w-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                      <Image
+                        src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
+                        alt={project.title}
+                        width={800}
+                        height={400}
+                        className="w-full h-64 object-cover"
+                      />
+                      
+                      <div className="absolute top-4 right-4 z-10">
+                        <span className="px-3 py-1 bg-amber-500/20 backdrop-blur-sm border border-amber-500/35 rounded-full text-xs font-semibold text-amber-500 dark:text-amber-400 flex items-center gap-1.5 shadow-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
+                          NDA Protected
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-6 flex items-center justify-center">
+                      <Image
+                        src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
+                        alt={project.title}
+                        width={800}
+                        height={400}
+                        className="max-w-full h-auto object-contain max-h-[400px]"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-4 mb-6">
-                  {project.logo && (
+                  {project.logo && !project.isConfidential && (
                     <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-2">
                       <Image
                         src={project.logo || "/placeholder.svg"}
@@ -119,18 +140,59 @@ export default function ProjectPopup({ project, onClose }: ProjectPopupProps) {
                       />
                     </div>
                   )}
+                  {project.isConfidential && (
+                    <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#7A7FEE]/10 flex items-center justify-center p-2 border border-[#7A7FEE]/20">
+                      <Lock className="w-6 h-6 text-[#7A7FEE]" />
+                    </div>
+                  )}
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">{project.title}</h2>
-                    <p className="text-gray-600 dark:text-gray-300">{project.shortDescription}</p>
+                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white leading-tight">{project.title}</h2>
+                    <p className="text-gray-600 dark:text-gray-300 mt-1">
+                      {project.isConfidential ? `Role: ${project.role}` : project.shortDescription}
+                    </p>
                   </div>
                 </div>
+
+                {project.isConfidential && project.highlights && (
+                  <div className="mb-6 p-6 bg-gray-50 dark:bg-[#1a1b1c]/30 border border-gray-150 dark:border-gray-800 rounded-2xl">
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-3">
+                      Key Highlights
+                    </h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {project.highlights.map((highlight, index) => (
+                        <li key={index} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#7A7FEE] mr-2.5 flex-shrink-0" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <div className="custom-content text-gray-700 dark:text-gray-300 space-y-4">
                   <div dangerouslySetInnerHTML={{ __html: createSimpleContent() }} />
                 </div>
 
+                {project.isConfidential && project.tech && (
+                  <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <h4 className="text-xs font-bold text-gray-950 dark:text-white uppercase tracking-wider mb-3">
+                      Technologies & Tools
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.map((techItem) => (
+                        <span
+                          key={techItem}
+                          className="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700/60 rounded-lg text-xs font-medium text-gray-800 dark:text-gray-200"
+                        >
+                          {techItem}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-8 flex flex-wrap gap-4">
-                  {project.projectUrl && (
+                  {project.projectUrl && !project.isConfidential && (
                     <a
                       href={project.projectUrl}
                       target="_blank"
@@ -141,13 +203,24 @@ export default function ProjectPopup({ project, onClose }: ProjectPopupProps) {
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   )}
-                  <Link
-                    href={`/portfolio/${project.slug}`}
-                    className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-[#7A7FEE] dark:hover:text-[#7A7FEE] text-sm font-medium"
-                    onClick={onClose}
-                  >
-                    View Full Case Study
-                  </Link>
+                  {project.isConfidential ? (
+                    <Link
+                      id="conf-inquire-btn"
+                      href="/start"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#7A7FEE] text-white rounded-md hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm"
+                      onClick={onClose}
+                    >
+                      Inquire About Similar Solutions
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/portfolio/${project.slug}`}
+                      className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-[#7A7FEE] dark:hover:text-[#7A7FEE] text-sm font-medium"
+                      onClick={onClose}
+                    >
+                      View Full Case Study
+                    </Link>
+                  )}
                 </div>
               </div>
             </motion.div>

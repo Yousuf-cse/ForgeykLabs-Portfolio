@@ -34,8 +34,8 @@ const services = [
 export default function Services() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.2,
+    once: true,
+    amount: 0.05,
   });
 
   return (
