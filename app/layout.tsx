@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   description:
     "We build high quality, scalable, and fully hand-coded websites for businesses. From client portals to marketplaces, we craft every line of code with precision and zero shortcuts",
   icons: {
-    icon: [{ url: "https://res.cloudinary.com/dxkje9whm/image/upload/v1759690903/forgeyk-logo_ohvgo0.png", type: "image/png" }],
-    apple: [{ url: "/automatic-favicon-no-bg.png" }],
+    icon: [{ url: "/logo/forgeyk-labs-logo-topbar-light.png", type: "image/png" }],
+    apple: [{ url: "/logo/forgeyk-labs-logo-topbar-light.png" }],
   },
 }
 
