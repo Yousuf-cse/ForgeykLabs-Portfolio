@@ -1,19 +1,29 @@
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioCardProps {
   item: PortfolioItem
 }
 
 export default function PortfolioCard({ item }: PortfolioCardProps) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <div className="card overflow-hidden rounded-3xl bg-white dark:bg-[#272829] border border-gray-200 dark:border-gray-800 transition-all duration-300 hover:shadow-lg h-full">
       <Link href={`/portfolio/${item.slug}`} className="block h-full flex flex-col">
         <div className="relative overflow-hidden">
           <Image
-            src={item.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+            src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
             alt={item.title}
             width={600}
             height={400}

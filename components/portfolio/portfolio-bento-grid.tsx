@@ -1,14 +1,24 @@
 "use client"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioBentoGridProps {
   items: PortfolioItem[]
 }
 
 export default function PortfolioBentoGrid({ items }: PortfolioBentoGridProps) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Function to determine grid span classes based on index
   const getGridSpan = (index: number): string => {
     // Create a pattern that repeats
@@ -48,7 +58,7 @@ export default function PortfolioBentoGrid({ items }: PortfolioBentoGridProps) {
             {/* Image container - no padding, full width */}
             <div className="relative w-full h-0 pb-[56.25%] overflow-hidden">
               <Image
-                src={item.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
                 alt={item.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

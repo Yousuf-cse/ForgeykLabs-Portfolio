@@ -1,11 +1,13 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { fetchPortfolioData, getProjectImage } from "@/utils/csv-parser";
 import type { PortfolioItem } from "@/utils/csv-parser";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, scaleIn } from "@/lib/animations";
 import { ArrowUpRight } from "lucide-react";
 import ProjectPopup from "./project-popup";
+import { useTheme } from "next-themes";
 
 interface PortfolioGridProps {
   items: PortfolioItem[];
@@ -17,6 +19,12 @@ export default function PortfolioMasonryGridFinal({
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(
     null
   );
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openProjectPopup = (project: PortfolioItem) => {
     setSelectedProject(project);
@@ -50,10 +58,7 @@ export default function PortfolioMasonryGridFinal({
             <div className="block h-full flex flex-col">
               <div className="relative overflow-hidden">
                 <Image
-                  src={
-                    item.mainImage ||
-                    "/placeholder.svg?height=600&width=800&query=project"
-                  }
+                  src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
                   alt={item.title}
                   width={600}
                   height={400}

@@ -6,6 +6,8 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import Masonry from "react-masonry-css"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { getProjectImage } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioMasonryGridProps {
   items: PortfolioItem[]
@@ -13,8 +15,11 @@ interface PortfolioMasonryGridProps {
 
 export default function PortfolioMasonryGrid({ items }: PortfolioMasonryGridProps) {
   const [windowWidth, setWindowWidth] = useState(0)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Set initial window width
     setWindowWidth(window.innerWidth)
 
@@ -53,7 +58,7 @@ export default function PortfolioMasonryGrid({ items }: PortfolioMasonryGridProp
           >
             <div className="relative overflow-hidden">
               <Image
-                src={item.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                src={getProjectImage(item, mounted ? resolvedTheme : undefined)}
                 alt={item.title}
                 width={800}
                 height={600}

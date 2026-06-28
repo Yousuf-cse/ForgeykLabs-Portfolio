@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { X, ExternalLink } from "lucide-react"
 import { useTheme } from "next-themes"
+import { getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
 import { motion, AnimatePresence } from "framer-motion"
 import { modalOverlay, modalContent } from "@/lib/animations"
@@ -98,7 +99,7 @@ export default function ProjectPopup({ project, onClose }: ProjectPopupProps) {
 
                 <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 flex items-center justify-center">
                   <Image
-                    src={project.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                    src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
                     alt={project.title}
                     width={800}
                     height={400}

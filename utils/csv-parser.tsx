@@ -231,3 +231,44 @@ function inferCategories(item: PortfolioItem): string[] {
 
   return categories;
 }
+
+export function getProjectImage(item: PortfolioItem, theme: string | undefined): string {
+  const isDark = theme === "dark";
+  const slugLower = (item.slug || "").toLowerCase();
+  const titleLower = (item.title || "").toLowerCase();
+  
+  if (
+    slugLower.includes("company portfolio") || 
+    titleLower.includes("company portfolio") ||
+    slugLower.includes("arab sign craft") ||
+    titleLower.includes("arab sign craft")
+  ) {
+    return isDark 
+      ? "/project-banner/forgeyklabs-project1-dark.png" 
+      : "/project-banner/forgeyklabs-project1-light.png";
+  }
+  
+  if (
+    slugLower.includes("gym management") || 
+    titleLower.includes("gym management") ||
+    slugLower.includes("fit culture gym") ||
+    titleLower.includes("fit culture gym")
+  ) {
+    return isDark 
+      ? "/project-banner/forgeyklabs-project2-dark.png" 
+      : "/project-banner/forgeyklabs-project2-light.png";
+  }
+  
+  if (
+    slugLower.includes("npm package") || 
+    titleLower.includes("npm package") ||
+    slugLower.includes("wraptalk") ||
+    titleLower.includes("wraptalk")
+  ) {
+    return isDark 
+      ? "/project-banner/forgeyklabs-project3-dark.png" 
+      : "/project-banner/forgeyklabs-project3-light.png";
+  }
+  
+  return item.mainImage || "/placeholder.svg?height=600&width=800&query=project";
+}

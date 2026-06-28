@@ -5,15 +5,22 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import ProjectPopup from "../portfolio/project-popup"
-import { fetchPortfolioData } from "@/utils/csv-parser"
+import { fetchPortfolioData, getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
 import { motion, useInView } from "framer-motion"
 import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
+import { useTheme } from "next-themes"
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null)
   const [projects, setProjects] = useState<PortfolioItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
 const sectionRef = useRef(null)
 const isInView = useInView(sectionRef, { 
@@ -85,7 +92,7 @@ const isInView = useInView(sectionRef, {
               >
                 <div className="relative overflow-hidden">
                   <Image
-                    src={project.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                    src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
                     alt={project.title}
                     width={600}
                     height={400}

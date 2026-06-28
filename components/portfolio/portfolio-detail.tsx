@@ -1,16 +1,26 @@
 "use client"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import Header from "@/components/landing-page/header"
 import Footer from "@/components/landing-page/footer"
+import { getProjectImage } from "@/utils/csv-parser"
 import type { PortfolioItem } from "@/utils/csv-parser"
+import { useTheme } from "next-themes"
 
 interface PortfolioDetailPageProps {
   project: PortfolioItem
 }
 
 export default function PortfolioDetailPage({ project }: PortfolioDetailPageProps) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <main className="min-h-screen bg-white dark:bg-[#111111]">
       <Header />
@@ -19,12 +29,11 @@ export default function PortfolioDetailPage({ project }: PortfolioDetailPageProp
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Portfolio
         </Link>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-8 flex items-center justify-center">
               <Image
-                src={project.mainImage || "/placeholder.svg?height=600&width=800&query=project"}
+                src={getProjectImage(project, mounted ? resolvedTheme : undefined)}
                 alt={project.title}
                 width={1200}
                 height={675}
